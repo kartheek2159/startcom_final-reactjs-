@@ -7,8 +7,6 @@ const authReducer = (state = { authData: null, loading: false, error: false, upd
 
       return {...state,  authData: action.data, loading: false, error: false };
 
-
-
       case "AUTH_FAIL":
       return {...state, loading: false, error: true };
     case "UPDATING_START":
@@ -35,12 +33,13 @@ const authReducer = (state = { authData: null, loading: false, error: false, upd
     case "UNFOLLOW_USER":
       return {...state, authData: {...state.authData, user: {...state.authData.user, following: [...state.authData.user.following.filter((personId)=>personId!==action.data)],followers:[...state.authData.user.followers.filter((personId)=>personId!==action.data)]} }}
 
-    case "FOLLOWER_USER":
-      return {...state, authData: {...state.authData, user: {...state.authData.user, followers: [...state.authData.user.followers, action.data]} }}
-        // return {...state, authData: {...state.authData, user: {...state.authData.user, following: [...state.authData.user.following, action.data]} }}
+
+    // case "FOLLOWER_USER":
+    //   return {...state, authData: {...state.authData, user: {...state.authData.user, followers: [...state.authData.user.followers, action.data]} }}
+    //     // return {...state, authData: {...state.authData, user: {...state.authData.user, following: [...state.authData.user.following, action.data]} }}
       
-    case "UNFOLLOWER_USER":
-      return {...state, authData: {...state.authData, user: {...state.authData.user, followers: [...state.authData.user.followers.filter((personId)=>personId!==action.data)]} }}
+    // case "UNFOLLOWER_USER":
+    //   return {...state, authData: {...state.authData, user: {...state.authData.user, followers: [...state.authData.user.followers.filter((personId)=>personId!==action.data)]} }}
 
 
       default:

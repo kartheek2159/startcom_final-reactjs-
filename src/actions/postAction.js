@@ -11,3 +11,11 @@ export const getTimelinePosts = (id) => async (dispatch) => {
     dispatch({ type: "RETREIVING_FAIL" });
   }
 };
+
+export const deletePosts=(id,userId,desc)=>async()=>{
+  try {
+    await PostsApi.deletePost(id,userId,desc)
+  } catch (error) {
+    console.log(error)
+  }
+}

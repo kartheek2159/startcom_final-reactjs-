@@ -31,3 +31,9 @@ export const unfollowUser = (id, data)=> async(dispatch)=> {
     // dispatch({type: "UNFOLLOWER_USER", data: id})
     UserApi.unfollowUser(id, data)
 }
+
+export const getUser=(id)=>async()=>{
+    const {data} = await UserApi.getUser(id);
+    console.log(data);
+
+}

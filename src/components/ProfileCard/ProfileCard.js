@@ -3,15 +3,40 @@ import React from 'react'
 // import Profile from '../../images/trail.png'
 import './ProfileCard.css'
 import {useNavigate} from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { getUser } from '../../actions/userAction'
+import * as UserApi from "../../API/userRequest";
+import { useState } from 'react'
+import { useEffect } from 'react'
 // import { store } from "../../App";
 const ProfileCard = () => {
   const navigate=useNavigate();
-  // const { users} =useContext(store);
-  // console.log(users.username)
+
   const {user} =useSelector( (state)=>state.authReducer.authData)
-  console.log(user)
+
+  // console.log(user)
+  const dispatch=useDispatch();
+  const[fl,setfl]=useState(0);
+  const[fo,setfo]=useState(0);
+  // const {demo}=dispatch(getUser(user._id))
+  // console.log(demo)
+  // console.log(user._id)
+
+  const getUser=(id)=>async()=>{
+    const {data} = await UserApi.getUser(id);
+    console.log(data)
+    setfl(data.following.length)
+    setfo(data.followers.length)
+    
+  }
+  useEffect(
+    ()=>{
+      dispatch(getUser(user._id))
+    }
+  )
+  
+  
   const serverPublic=process.env.REACT_APP_PUBLIC_FOLDER
   const ProfilePage=false;
   return (
@@ -33,14 +58,14 @@ const ProfileCard = () => {
           <hr/>
           <div>
           <div className='follow'>
-            <span>{user.following.length}</span>
+            <span>{fl}</span>
             <span>Following</span>
           </div>
           <div className='vl' style={{height: '100%',
     width: 1,
     backgroundColor: '#909090'}}></div>
           <div className='follow'>
-            <span>{user.followers.length}</span>
+            <span>{fo}</span>
             <span>Followers</span>
           </div>
           {ProfilePage&&(
