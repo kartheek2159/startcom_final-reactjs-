@@ -2,6 +2,7 @@ import UserModel from "../Models/userModel.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+
 export const registerUser=async(req,res)=>{
     // const {username,password,firstname,lastname}=req.body
     const salt=await bcrypt.genSalt(10)
@@ -25,6 +26,7 @@ export const registerUser=async(req,res)=>{
         res.status(500).json({message:error.message})
     }
 }
+
 
 //User Login
 

@@ -13,7 +13,9 @@ const FollowersCard = () => {
     useEffect(()=>{
         const fetchPersons=async()=>{
             const {data}=await getAllUser();
-            setPersons(data)
+            var Data = data;
+            Data=Data.filter((e)=>e._id!=="6390dad46982cc052e7539ec")
+            setPersons(Data)
             // console.log(data)
         };
         fetchPersons();

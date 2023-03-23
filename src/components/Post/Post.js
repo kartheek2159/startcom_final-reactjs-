@@ -8,9 +8,12 @@ import { FaShare} from "react-icons/fa";
 import CommentModal from '../CommentModal/CommentModal'
 import { useDispatch, useSelector } from 'react-redux';
 import { likePost } from '../../API/postRequest';
-import { deletePosts } from '../../actions/postAction';
+import { getTimelinePosts } from '../../actions/postAction'
+import {deletePost} from "../../API/postRequest";
 const Post = ({data}) => {
     const {user}=useSelector((state)=>state.authReducer.authData)
+    console.log(user);
+    console.log(data);
     const [liked,setLiked]=useState(data.likes.includes(user._id))
     const [likes,setLikes]=useState(data.likes.length)
     const [modalOpened,setModalOpened]=useState(false);
@@ -34,12 +37,11 @@ const Post = ({data}) => {
         
         liked?setLikes((prev)=>prev-1):setLikes((prev)=>prev+1)
     }
-    const commenthandler=()=>{
-        // setModalOpened(true)
-        setcom(!com)
+    const Delposthandler=()=>{
+        deletePost(data._id,user._id);
+       alert("Post Deleted");
+       window.location.reload();
     }
-    console.log(data)
-    
   return (
    <div className='Post'>
     <img src={data.image?process.env.REACT_APP_PUBLIC_FOLDER+data.image:""} alt=""/>
@@ -47,24 +49,10 @@ const Post = ({data}) => {
         <div className='li' onClick={()=>likehandler()}>
         {liked?<BsHeartFill style={{color:'green',height:'30px',width:'30px'}}/>:<BsHeart style={{color:'green',height:'30px',width:'30px'}}/>}
         </div> 
-    {/* <FaCommentDots style={{color:'green',height:'30px',width:'30px'}} onClick={commenthandler}/>   
-    <CommentModal modalOpened={modalOpened} setModalOpened={setModalOpened}></CommentModal> 
-    <FaShare style={{color:'green',height:'30px',width:'30px'}}/> */}
-    {/* <FaRegTrashAlt style={{color:'green',height:'30px',width:'30px'}} onClick={deleteHandler}/> */}
+    {user._id===data.userId?<FaRegTrashAlt style={{color:'green',height:'30px',width:'30px'}} onClick={()=>Delposthandler()}/>:null}
     </div>
     <span style={{fontSize:'12px'}}>{likes} Likes</span>
-    {com&& 
-        <div className='comments'>
-            {/* <h5>Comments</h5> */}
-            <input type="text" v placeholder="Enter Comment"  /> 
-            <span>First commenthandler</span>
-            <span>First commenthandler</span>
-            <span>First commenthandler</span>
-            <span>First commenthandler</span>
-            <span>First commenthandler</span>
-            
-        </div>
-       }
+    
     <div className='detail'>
         <span><b>{data.username}</b></span>
         <span>{data.desc}</span>

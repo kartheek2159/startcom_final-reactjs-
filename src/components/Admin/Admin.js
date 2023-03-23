@@ -17,6 +17,7 @@ function Admin() {
 
   const deleteUser=async(id,status)=>{
     await UserApi.deleteUser(id)
+    window.location.reload();
   }
   useEffect(() => {
    getAllUser();

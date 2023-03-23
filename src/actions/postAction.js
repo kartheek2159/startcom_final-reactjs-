@@ -12,9 +12,9 @@ export const getTimelinePosts = (id) => async (dispatch) => {
   }
 };
 
-export const deletePosts=(id,userId,desc)=>async()=>{
+export const deletePosts=(id,userId)=>async()=>{
   try {
-    await PostsApi.deletePost(id,userId,desc)
+    await PostsApi.deletePost(id,userId)
   } catch (error) {
     console.log(error)
   }
