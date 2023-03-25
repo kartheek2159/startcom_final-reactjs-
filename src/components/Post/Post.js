@@ -36,6 +36,7 @@ const Post = ({data}) => {
         likePost(data._id,user._id)
         
         liked?setLikes((prev)=>prev-1):setLikes((prev)=>prev+1)
+        window.location.reload();
     }
     const Delposthandler=()=>{
         deletePost(data._id,user._id);

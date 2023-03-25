@@ -11,17 +11,17 @@ const User = ({person}) => {
     const [following, setFollowing] = useState(
       person.followers.includes(user._id)
     );
-    const [check,setcheck]=useState(false)
     // console.log(person.followers.includes(user._id))
     console.log(person)
     const handleFollow = (e) => {
-      following
-        ? dispatch(unfollowUser(person._id, user))
-        : dispatch(followUser(person._id, user));
-      dispatch( createChat(person._id,user._id))
-  
+      if (following) {
+        dispatch(unfollowUser(person._id, user));
+      } else {
+        dispatch(followUser(person._id, user));
+        dispatch(createChat(person._id, user._id));
+      }
       setFollowing((prev) => !prev);
-      setcheck(true)
+      
     };
     
   return (

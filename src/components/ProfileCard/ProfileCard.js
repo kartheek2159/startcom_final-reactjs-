@@ -28,7 +28,6 @@ const ProfileCard = () => {
     console.log(data)
     setfl(data.following.length)
     setfo(data.followers.length)
-    
   }
   useEffect(
     ()=>{

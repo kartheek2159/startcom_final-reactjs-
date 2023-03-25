@@ -24,12 +24,17 @@ export const followUser = (id, data)=> async(dispatch)=> {
     dispatch({type: "FOLLOW_USER", data: id})
     // dispatch({type: "FOLLOWER_USER", data: id})
     UserApi.followUser(id, data)
+    alert("You Started Following the User")
+    window.location.reload();
 }
 
 export const unfollowUser = (id, data)=> async(dispatch)=> {
     dispatch({type: "UNFOLLOW_USER", data: id})
+    console.log(data)
     // dispatch({type: "UNFOLLOWER_USER", data: id})
     UserApi.unfollowUser(id, data)
+    alert(`You Unfollowed the User`)
+    window.location.reload();
 }
 
 export const getUser=(id)=>async()=>{

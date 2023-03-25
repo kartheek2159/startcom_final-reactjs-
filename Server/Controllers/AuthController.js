@@ -1,25 +1,30 @@
 import UserModel from "../Models/userModel.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import UserRepository from "../DDD/UserRepository.js";
 
-
+const userRepo=new UserRepository();
 export const registerUser=async(req,res)=>{
     // const {username,password,firstname,lastname}=req.body
-    const salt=await bcrypt.genSalt(10)
-    const hashedPass=await bcrypt.hash(req.body.password,salt)
-    req.body.password=hashedPass
+    // const salt=await bcrypt.genSalt(10)
+    // const hashedPass=await bcrypt.hash(req.body.password,salt)
+    // req.body.password=hashedPass
     // const newUser=new UserModel({username,password:hashedPass,firstname,lastname})
-    const newUser=new UserModel(req.body)
+    // const newUser=new UserModel(req.body)
     const {username}=req.body
+    
 
     try {
-        const oldUser=await UserModel.findOne({username})
+        // const oldUser=await UserModel.findOne({username})
+
+        const oldUser =await userRepo.finduser(username);
         // 
         // res.status(200).json(newUser)
         if(oldUser){
             return res.status(400).json({message:"Username already registered"})
         }
-        const user=await newUser.save()
+        const user=await userRepo.createuser(req.body)
+        console.log(user)
         const token=jwt.sign({username:user.username,id:user._id},'MERN',{expiresIn:"1h"})
         res.status(200).json({user,token})
     } catch (error) {
@@ -33,7 +38,7 @@ export const registerUser=async(req,res)=>{
 export const loginUser=async(req,res)=>{
     const {username,password}=req.body
     try {
-        const user=await UserModel.findOne({username:username})
+        const user=await userRepo.finduser(username);
         if(user){
             const validity=await bcrypt.compare(password,user.password)
             if(!validity){

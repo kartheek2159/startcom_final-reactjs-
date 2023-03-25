@@ -1,9 +1,9 @@
 import ChatModel from "../models/chatModel.js";
+import ChatRepository from "../DDD/ChatRepository.js";
 
+const ChatRepo=new ChatRepository();
 export const createChat = async (req, res) => {
-  const newChat = new ChatModel({
-    members: [req.body.senderId, req.body.receiverId],
-  });
+  const newChat = await ChatRepo.create_chat(req.body)
   try {
     const result = await newChat.save();
     res.status(200).json(result);
@@ -14,9 +14,7 @@ export const createChat = async (req, res) => {
 
 export const userChats = async (req, res) => {
   try {
-    const chat = await ChatModel.find({
-      members: { $in: [req.params.userId] },
-    });
+    const chat = await ChatRepo.user_chats(req.params)
     res.status(200).json(chat);
   } catch (error) {
     res.status(500).json(error);
@@ -25,9 +23,7 @@ export const userChats = async (req, res) => {
 
 export const findChat = async (req, res) => {
   try {
-    const chat = await ChatModel.findOne({
-      members: { $all: [req.params.firstId, req.params.secondId] },
-    });
+    const chat = await ChatRepo.find_chat(req.params);
     res.status(200).json(chat)
   } catch (error) {
     res.status(500).json(error)
