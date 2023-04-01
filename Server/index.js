@@ -11,6 +11,13 @@ import ChatRoute from './Routes/ChatRoute.js'
 import MessageRoute from './Routes/MessageRoute.js'
 import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express';
+import morgan  from 'morgan'
+import fs from 'fs'
+import path from 'path'
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app=express();
 const options={
@@ -450,13 +457,20 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpec))
  *         description: Internal server error
  */
 
+const accessLogPath = path.join(__dirname, 'access.log');
+const accessLogStream = fs.createWriteStream(accessLogPath, { flags: 'a' });
+
+// Set up the morgan middleware to use the writable stream
+app.use(morgan('combined', { stream: accessLogStream }));
 app.use(express.static('public'))
 app.use('/images',express.static("images"))
+
 
 //...................middleware.......................//
 app.use(bodyParser.json({limit:'30mb',extended:true}));
 app.use(bodyParser.urlencoded({limit:'30mb',extended:true}))
 app.use(cors())
+// app.use(morgan("tiny"),{stream:accessLogStream});
 dotenv.config()
 
 mongoose.connect(process.env.MONGO_DB,{useNewUrlParser:true,useUnifiedTopology:true}).then(
