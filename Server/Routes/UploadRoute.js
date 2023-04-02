@@ -11,8 +11,10 @@ const storage = multer.diskStorage({
       cb(null, req.body.name);
     },
   });
-const upload = multer({ storage: storage });
 
+//cb (call back )
+const upload = multer({ storage: storage });
+//.array("files",10)
 
 router.post("/", upload.single("file"), (req, res) => {
     try {

@@ -120,6 +120,15 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpec))
  *            required: true
  *            schema:
  *              type: string
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                _id:
+ *                  type: string
  *      responses:
  *          200:
  *              description: User Followed
@@ -145,6 +154,15 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpec))
  *            required: true
  *            schema:
  *              type: string
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                _id:
+ *                  type: string
  *      responses:
  *          200:
  *              description: Unfollowed Successfully
@@ -470,7 +488,6 @@ app.use('/images',express.static("images"))
 app.use(bodyParser.json({limit:'30mb',extended:true}));
 app.use(bodyParser.urlencoded({limit:'30mb',extended:true}))
 app.use(cors())
-// app.use(morgan("tiny"),{stream:accessLogStream});
 dotenv.config()
 
 mongoose.connect(process.env.MONGO_DB,{useNewUrlParser:true,useUnifiedTopology:true}).then(
