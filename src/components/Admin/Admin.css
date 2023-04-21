@@ -71,3 +71,7 @@ td {
   color: red;
   cursor: pointer;
 }
+.button_adjust{
+  display: flex;
+  justify-content: center;
+}

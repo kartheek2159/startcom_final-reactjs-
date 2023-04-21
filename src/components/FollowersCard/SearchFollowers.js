@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { getAllUser } from '../../API/userRequest'
-const FollowersCard = () => {
+const SearchFollowers = (searchText) => {
     const [persons,setPersons]=useState([])
    
     const{user}=useSelector((state)=>state.authReducer.authData)
@@ -14,7 +14,7 @@ const FollowersCard = () => {
         const fetchPersons=async()=>{
             const {data}=await getAllUser();
             var Data = data;
-            Data=Data.filter((e)=>e._id!=="6390dad46982cc052e7539ec")
+            Data=Data.filter((e)=>e.username.includes(searchText))
             setPersons(Data)
             // console.log(data)
         };
@@ -28,6 +28,8 @@ const FollowersCard = () => {
         {
             persons.map((person,id) => {
                 if(person._id!==user._id){
+
+                
                 return (
                     <User person={person} key={id}/>
                 )
@@ -39,4 +41,6 @@ const FollowersCard = () => {
   )
 }
 
-export default FollowersCard
+export default SearchFollowers;
+
+

@@ -10,7 +10,13 @@ const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [reportmsg,setReportMessage]=useState("Report User");
+  const handleReportClick = () => {
+    alert("User Has Been Reported");
+    setReportMessage("Reported")
 
+  };
+  
   const handleChange = (newMessage)=> {
     setNewMessage(newMessage)
   }
@@ -99,7 +105,7 @@ useEffect(()=> {
                 <div>
                   <img
                     src={
-                      userData?.profilePicture
+                      userData?.coverPicture
                         ? process.env.REACT_APP_PUBLIC_FOLDER +
                           userData.profilePicture
                         : process.env.REACT_APP_PUBLIC_FOLDER +
@@ -114,6 +120,10 @@ useEffect(()=> {
                       {userData?.firstname} {userData?.lastname}
                     </span>
                   </div>
+                  <button className="report-button" style={{ fontSize: "0.9rem" }} onClick={handleReportClick}>
+                  {reportmsg}
+                  </button>
+
                 </div>
               </div>
               <hr

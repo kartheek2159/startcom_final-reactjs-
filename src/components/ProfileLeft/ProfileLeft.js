@@ -8,8 +8,10 @@ const ProfileLeft = () => {
         <LogoSearch/>
         <InfoCard/>
         <FollowersCard/>
+        
     </div>
   )
 }
 
 export default ProfileLeft
+

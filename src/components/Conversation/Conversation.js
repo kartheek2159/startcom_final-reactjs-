@@ -31,7 +31,7 @@ const Conversation = ({ data, currentUser, online }) => {
         <div>
           {online && <div className="online-dot"></div>}
           <img
-            src={userData?.profilePicture? process.env.REACT_APP_PUBLIC_FOLDER + userData.profilePicture : process.env.REACT_APP_PUBLIC_FOLDER + "defaultProfile.png"}
+            src={userData?.coverPicture? process.env.REACT_APP_PUBLIC_FOLDER + userData.coverPicture : process.env.REACT_APP_PUBLIC_FOLDER + "defaultProfile.png"}
             alt="Profile"
             className="followerImage"
             style={{ width: "50px", height: "50px" }}

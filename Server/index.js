@@ -302,6 +302,32 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpec))
  *       '500':
  *         description: Chat not found
  */
+/**
+ * @swagger
+ * /chat/find/{firstId}:
+ *   get:
+ *     summary: Find a new  chat
+ *     description: Find a chat between two users
+ *     tags: [Chats]
+ *     parameters:
+ *       - in: path
+ *         name: firstId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the first user
+ *       - in: path
+ *         name: secondId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the second user
+ *     responses:
+ *       '200':
+ *         description: The chat between the two users, if it exists
+ *       '500':
+ *         description: Chat not found
+ */
 
 /**
  * @swagger
@@ -393,6 +419,15 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerSpec))
  *         required: true
  *         schema:
  *           type: string
+ *     requestBody:
+ *        required: true
+ *        content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Post liked successfully

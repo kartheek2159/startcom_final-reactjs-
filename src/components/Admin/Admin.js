@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Admin.css";
 import * as UserApi from "../../API/userRequest";
+import { useDispatch } from 'react-redux';
+import { logout } from '../../actions/authAction';
+import {useNavigate} from 'react-router-dom'
 
 function Admin() {
   const [rval, setrval] = useState(0);
@@ -30,10 +33,16 @@ function Admin() {
     alert(`User with id ${a} deleted`);
     console.log(a);
   }
-
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
   var Data = userData;
   Data=Data.filter((e)=>e._id!=="6390dad46982cc052e7539ec")
-
+  const handleLogOut=()=>{
+    console.log("kartehk")
+    dispatch(logout())
+    navigate('/auth');
+    
+}
   
   return (
     <div>
@@ -66,6 +75,10 @@ function Admin() {
             })}
           </table>
         </div>
+        
+      </div>
+      <div className="button_adjust">
+      <button onClick={handleLogOut}>LogOut</button>
       </div>
     </div>
   );

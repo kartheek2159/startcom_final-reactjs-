@@ -81,3 +81,8 @@
     height: 70%;
     padding: 0px 15px 0px 15px;
 }
+.report-button{
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: rgb(241, 54, 54);
+}
