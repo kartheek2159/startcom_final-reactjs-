@@ -16,6 +16,7 @@ import fs from 'fs'
 import path from 'path'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { createClient } from "redis";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -527,11 +528,26 @@ dotenv.config()
 
 mongoose.connect(process.env.MONGO_DB,{useNewUrlParser:true,useUnifiedTopology:true}).then(
     ()=>{
-        app.listen(process.env.PORT,()=>{console.log("connected")})
+        app.listen(process.env.PORT,()=>{console.log("connected to MongoDB")})
     }
 ).catch((error)=>{
     console.log(error)
 })
+
+
+
+// use("STARTCOM")
+// db.users.aggregate([
+//     {
+//         "$search":{
+//             "text":{
+//                 "query": "samrat28",
+//                 "path":"username"
+//             }
+//         }
+//     }
+// ])
+
 
 app.use('/auth',AuthRoute)
 app.use('/user',UserRoute)

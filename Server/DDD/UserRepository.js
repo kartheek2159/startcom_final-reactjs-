@@ -12,7 +12,7 @@ class UserRepository {
     return user;
   }
    finduser(username){
-    return  UserModel.findOne({username})
+    return UserModel.findOne({username})
   }
 }
 
