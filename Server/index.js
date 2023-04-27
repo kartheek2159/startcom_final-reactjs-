@@ -18,6 +18,14 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { createClient } from "redis";
 
+// const express = require("express");
+// const bodyParser = require("body-parser");
+// const mongoose = require("mongoose");
+// const dotenv = require("dotenv");
+// const cors = require("cors");
+
+
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app=express();

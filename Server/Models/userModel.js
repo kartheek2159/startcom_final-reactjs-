@@ -33,6 +33,7 @@ const UserSchema=mongoose.Schema({
 },
 {timestamps:true}
 )
+UserSchema.index({username : 1})
 
 const UserModel=mongoose.model("Users",UserSchema)
 export default UserModel
