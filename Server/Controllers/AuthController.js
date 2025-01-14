@@ -2,7 +2,7 @@ import UserModel from "../Models/userModel.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import UserRepository from "../DDD/UserRepository.js";
-import client from '../utils/redis.js'
+// import client from '../utils/redis.js'
 
 const userRepo=new UserRepository();
 export const registerUser=async(req,res)=>{
@@ -28,13 +28,14 @@ export const registerUser=async(req,res)=>{
         console.log(user)
         const token=jwt.sign({username:user.username,id:user._id},'MERN',{expiresIn:"1h"})
 
-        client.del("users");
+        // client.del("users");
         let users = await UserModel.find();
         users = users.map((user) => {
           const { password, ...otherDetails } = user._doc;
           return otherDetails;
         });
-        await client.set("users",JSON.stringify(obj))
+
+        // await client.set("users",JSON.stringify(obj))
 
         res.status(200).json({user,token})
     } catch (error) {

@@ -1,28 +1,25 @@
 import UserModel from "../Models/userModel.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import client from '../utils/redis.js'
+// import client from '../utils/redis.js'
 
 //get all users
 
 export const getAllUser=async(req,res)=>{
     try {
-      const cached_data= await client.get("users");
-      if(cached_data){
-        console.log("Data is coming from redis")
-        res.status(200).json(JSON.parse(cached_data))
-      }
-      else{
-
-        let users=await UserModel.find();
+      // const cached_data= await client.get("users");
+      // if(cached_data){
+      //   console.log("Data is coming from redis")
+      //   res.status(200).json(JSON.parse(cached_data))
+      // }
+      let users=await UserModel.find();
 
         users=users.map((user)=>{
             const {password,...otherDetails}=user._doc
             return otherDetails;
         })
-        client.set("users",JSON.stringify(users));
+      
         res.status(200).json(users)
-      }
     } catch (error) {
         res.status(500).json(error)
     }
